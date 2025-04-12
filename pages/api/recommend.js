@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { age, gender, height, weight, goal } = req.body;
     const serpApiKey = 'e8edcd447e65bb0edfba5e96b29352d4488461d4514b96b0bdea669804a6c8ce';
-    let recommendation = '';
+    let recommendation = [];
     let totalResults = 0;
 
     try {
@@ -18,14 +18,11 @@ export default async function handler(req, res) {
 
     recommendation = [
       `You are ${age} years old, ${gender}, ${height} cm, ${weight} kg.`,
-      `Your goal is ${goal}.`,
-      `Follow a workout split that suits your goal.`,
-      `Include a mix of resistance training, cardio, and recovery.`,
-      `Focus on nutrition and rest for optimal results.`,
-      `Searches analyzed: ${totalResults}`
-    ].join('\n');
+      `Your goal is ${goal}. Follow a workout split tailored for that purpose.`,
+      `Include strength training, mobility, and recovery exercises. Stick to a routine and eat accordingly.`
+    ];
 
-    res.status(200).json({ recommendation });
+    res.status(200).json({ recommendation, searchCount: totalResults });
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
   }
